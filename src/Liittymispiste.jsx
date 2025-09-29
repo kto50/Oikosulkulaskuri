@@ -1,0 +1,62 @@
+import { useState } from "react"
+import D1Taulu from "./csvjson.json"
+
+export default function Liittymispiste(props) {
+    const styles = { margin: 0, marginLeft: 10}
+    // console.log(props)
+    const [ik1, setIk1] = useState("")
+console.log("ik1")
+console.log(props.checkedIk1)
+    return (
+        <>
+            <h2>Liittymispiste</h2>
+            <p><b> Haluatko laskea 3- vai 1-vaiheisen oikosulkuvirran vai molemmat?</b> </p>
+            <div>
+                <label>3-vaiheinen, Ik3:
+                <input id="" type="checkbox" value={props.checkedIk3} onChange={(e) => props.setCheckedIk3(e.target.checked)} />
+                </label>
+                <label>1-vaiheinen, Ik1:
+                <input id="" type="checkbox" value={props.checkedIk1} onChange={(e) => props.setCheckedIk1(e.target.checked)} />
+                </label>                
+            </div>
+
+            <form className="liittymispiste">
+                {props.checkedIk3 && (
+                    <>
+                        <div className="form-row">
+                        <label htmlFor="ik3">3-vaiheinen oikosukuvirta</label>
+                        <input id="ik3" type="number" value={props.ik3} onChange={(e) => props.setIk3(e.target.value)}  placeholder="kA"/>
+                        </div>
+                        <div className="form-row">
+                        <label htmlFor="cos-fii">Tehokerroin*</label>
+                        <input id="cos-fii" type="number" value={props.cosfii} onChange={(e) => props.setCosfii(e.target.value)}  />
+                        </div>
+                        <p style={{margin: 0}}>*Pienjänniteverkossa yleensä esiintyvät tehokertoimen arvot (yli 0,9) eivät juuri vaikuta Kappan arvoon.</p>
+
+                    </>
+                )}
+                
+                
+                
+                {props.checkedIk1 && (
+                    <div className="form-row">
+                        <label htmlFor="ik1">1-vaiheinen oikosukuvirta</label>
+                        <input id="ik1" type="number" value={ik1} onChange={(e) => setIk1(e.target.value)} placeholder="kA" />
+                    </div>
+                )}
+            </form>
+            <div className="verkko">
+                {props.ik3 && (
+                    <div>
+                        <p>Annetun 3-vaiheisen oikosulkuvirran ja tehokertoimen perusteella liittymäpistettä edeltävän verkon 
+                        impedanssiksi Z, resistanssiksi R ja reaktanssiksi X saadaan:</p>
+                        <p style={styles}>Z = {props.impedanssi.toPrecision(3)} Ω</p>
+                        <p style={styles}>R = {props.resistanssi.toPrecision(3)} Ω</p>
+                        <p style={styles}>X = {props.reaktanssi.toPrecision(3)} Ω</p>
+                    </div> ) }
+                
+            </div>
+            
+        </>
+    )
+}

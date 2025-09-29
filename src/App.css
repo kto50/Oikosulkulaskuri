@@ -1,0 +1,40 @@
+
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.laskurin-kuvaus {
+  margin-left: 5%;
+  text-align: left;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* väli rivien väliin */
+  max-width: 400px; /* valinnainen, rajoittaa leveyttä */
+  margin-bottom: 40px;
+}
+
+.form-row {
+  display: flex;
+  align-items: center; /* keskittää pystysuunnassa */
+  gap: 10px; /* väli labelin ja inputin väliin */
+}
+
+label {
+  width: 120px; /* kiinteä leveys -> kaikki inputit alkavat samasta kohdasta */
+  font-weight: bold;
+}
+
+input {
+  flex: 1; /* input venyy jäljelle jäävän tilan mukaan */
+  padding: 6px;
+}
+.verkko {
+  margin-left: 10;
+}

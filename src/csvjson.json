@@ -1,0 +1,245 @@
+[
+  {
+    "kaapeli": "Al 4 x 16",
+    "ala": 16,
+    "resistanssi": 2.324,
+    "reaktanssi": 0.09,
+    "impedanssi": 2.326,
+    "kerroin": 35.898,
+    "potenssi": -0.985
+  },
+  {
+    "kaapeli": "Al 4 x 25",
+    "ala": 25,
+    "resistanssi": 1.489,
+    "reaktanssi": 0.086,
+    "impedanssi": 1.492,
+    "kerroin": 35.898,
+    "potenssi": -0.985
+  },
+  {
+    "kaapeli": "Al 4 x 35",
+    "ala": 35,
+    "resistanssi": 1.086,
+    "reaktanssi": 0.083,
+    "impedanssi": 1.089,
+    "kerroin": 35.898,
+    "potenssi": -0.985
+  },
+  {
+    "kaapeli": "Al 4 x 50",
+    "ala": 50,
+    "resistanssi": 0.796,
+    "reaktanssi": 0.083,
+    "impedanssi": 0.8,
+    "kerroin": 35.898,
+    "potenssi": -0.985
+  },
+  {
+    "kaapeli": "Al 4 x 70",
+    "ala": 70,
+    "resistanssi": 0.551,
+    "reaktanssi": 0.082,
+    "impedanssi": 0.557,
+    "kerroin": 35.898,
+    "potenssi": -0.985
+  },
+  {
+    "kaapeli": "Al 4 x 95",
+    "ala": 95,
+    "resistanssi": 0.398,
+    "reaktanssi": 0.082,
+    "impedanssi": 0.406,
+    "kerroin": 35.898,
+    "potenssi": -0.985
+  },
+  {
+    "kaapeli": "Al 4 x 120",
+    "ala": 120,
+    "resistanssi": 0.316,
+    "reaktanssi": 0.08,
+    "impedanssi": 0.326,
+    "kerroin": 35.898,
+    "potenssi": -0.985
+  },
+  {
+    "kaapeli": "Al 4 x 150",
+    "ala": 150,
+    "resistanssi": 0.258,
+    "reaktanssi": 0.08,
+    "impedanssi": 0.27,
+    "kerroin": 35.898,
+    "potenssi": -0.985
+  },
+  {
+    "kaapeli": "Al 4 x 185",
+    "ala": 185,
+    "resistanssi": 0.207,
+    "reaktanssi": 0.08,
+    "impedanssi": 0.222,
+    "kerroin": 35.898,
+    "potenssi": -0.985
+  },
+  {
+    "kaapeli": "Al 4 x 240",
+    "ala": 240,
+    "resistanssi": 0.162,
+    "reaktanssi": 0.079,
+    "impedanssi": 0.18,
+    "kerroin": 35.898,
+    "potenssi": -0.985
+  },
+  {
+    "kaapeli": "Al 4 x 300",
+    "ala": 300,
+    "resistanssi": 0.133,
+    "reaktanssi": 0.079,
+    "impedanssi": 0.155,
+    "kerroin": 35.898,
+    "potenssi": -0.985
+  },
+  {
+    "kaapeli": "Cu 4 x 1,5",
+    "ala": 1.5,
+    "resistanssi": 14.62,
+    "reaktanssi": 0.115,
+    "impedanssi": 14.62,
+    "kerroin": 21.717,
+    "potenssi": -0.986
+  },
+  {
+    "kaapeli": "Cu 4 x 2,5",
+    "ala": 2.5,
+    "resistanssi": 8.77,
+    "reaktanssi": 0.11,
+    "impedanssi": 8.77,
+    "kerroin": 21.717,
+    "potenssi": -0.986
+  },
+  {
+    "kaapeli": "Cu 4 x 4",
+    "ala": 4,
+    "resistanssi": 5.48,
+    "reaktanssi": 0.107,
+    "impedanssi": 5.48,
+    "kerroin": 21.717,
+    "potenssi": -0.986
+  },
+  {
+    "kaapeli": "Cu 4 x 6",
+    "ala": 6,
+    "resistanssi": 3.66,
+    "reaktanssi": 0.1,
+    "impedanssi": 3.66,
+    "kerroin": 21.717,
+    "potenssi": -0.986
+  },
+  {
+    "kaapeli": "Cu 4 x 10",
+    "ala": 10,
+    "resistanssi": 2.244,
+    "reaktanssi": 0.094,
+    "impedanssi": 2.246,
+    "kerroin": 21.717,
+    "potenssi": -0.986
+  },
+  {
+    "kaapeli": "Cu 4 x 16",
+    "ala": 16,
+    "resistanssi": 1.415,
+    "reaktanssi": 0.09,
+    "impedanssi": 1.418,
+    "kerroin": 21.717,
+    "potenssi": -0.986
+  },
+  {
+    "kaapeli": "Cu 4 x 25",
+    "ala": 25,
+    "resistanssi": 0.898,
+    "reaktanssi": 0.086,
+    "impedanssi": 0.902,
+    "kerroin": 21.717,
+    "potenssi": -0.986
+  },
+  {
+    "kaapeli": "Cu 4 x 35",
+    "ala": 35,
+    "resistanssi": 0.652,
+    "reaktanssi": 0.083,
+    "impedanssi": 0.657,
+    "kerroin": 21.717,
+    "potenssi": -0.986
+  },
+  {
+    "kaapeli": "Cu 4 x 50",
+    "ala": 50,
+    "resistanssi": 0.482,
+    "reaktanssi": 0.083,
+    "impedanssi": 0.489,
+    "kerroin": 21.717,
+    "potenssi": -0.986
+  },
+  {
+    "kaapeli": "Cu 4 x 70",
+    "ala": 70,
+    "resistanssi": 0.336,
+    "reaktanssi": 0.082,
+    "impedanssi": 0.346,
+    "kerroin": 21.717,
+    "potenssi": -0.986
+  },
+  {
+    "kaapeli": "Cu 4 x 95",
+    "ala": 95,
+    "resistanssi": 0.244,
+    "reaktanssi": 0.082,
+    "impedanssi": 0.257,
+    "kerroin": 21.717,
+    "potenssi": -0.986
+  },
+  {
+    "kaapeli": "Cu 4 x 120",
+    "ala": 120,
+    "resistanssi": 0.195,
+    "reaktanssi": 0.08,
+    "impedanssi": 0.211,
+    "kerroin": 21.717,
+    "potenssi": -0.986
+  },
+  {
+    "kaapeli": "Cu 4 x 150",
+    "ala": 150,
+    "resistanssi": 0.155,
+    "reaktanssi": 0.08,
+    "impedanssi": 0.174,
+    "kerroin": 21.717,
+    "potenssi": -0.986
+  },
+  {
+    "kaapeli": "Cu 4 x 185",
+    "ala": 185,
+    "resistanssi": 0.125,
+    "reaktanssi": 0.08,
+    "impedanssi": 0.148,
+    "kerroin": 21.717,
+    "potenssi": -0.986
+  },
+  {
+    "kaapeli": "Cu 4 x 240",
+    "ala": 240,
+    "resistanssi": 0.095,
+    "reaktanssi": 0.079,
+    "impedanssi": 0.124,
+    "kerroin": 21.717,
+    "potenssi": -0.986
+  },
+  {
+    "kaapeli": "Cu 4 x 300",
+    "ala": 300,
+    "resistanssi": 0.078,
+    "reaktanssi": 0.079,
+    "impedanssi": 0.111,
+    "kerroin": 21.717,
+    "potenssi": -0.986
+  }
+]
