@@ -14,12 +14,14 @@ const Paakeskus = (props) => {
 
   const NeperinLuku = 2.718281
   const kappa = (1.02 + 0.98*NeperinLuku**(-3*(props.resistanssi/props.reaktanssi)))
-  const Ip = kappa * Math.sqrt(2) * props.Icp
-
-  /* Ip RAJOITETTU */
-/*   const IpRajoitettu = 10**selectedSulake.bToJson * pkIcp**selectedSulake.k_ka
-  const IcpRajoitettu = IpRajoitettu**(1/k) * 10**(-selectedSulake.bToJson/selectedSulake.k_ka)
- */  return (
+  const Ip = kappa * Math.sqrt(2) * props.Icp  
+  
+  /* SULAKKEEN RAJOITTAMA OIKOSULKUVIRTA */
+  let IpRajoitettu = 0
+  {selectedSulake && (IpRajoitettu = 10**selectedSulake.bToJson * props.Icp**selectedSulake.k_ka)}
+  let IcpRajoitettu = 0
+  {selectedSulake && (IcpRajoitettu = 10**(1/selectedSulake.k_kak) * 10**(-selectedSulake.bToJson/selectedSulake.k_ka))}
+  return (
     <>        
       <h2>{props.keskus}</h2>      
       {props.Icp > 0  && (
@@ -55,7 +57,7 @@ const Paakeskus = (props) => {
             <label htmlFor="sulakekoko">Sulakekoko</label>  
             {<select id='sulakekoko' value={sulake} 
                 onChange={(e) => setSulake(e.target.value)}
-                disabled={!valmistaja} defaultValue="" // ei voi valita ennen valmistajaa
+                disabled={!valmistaja} // ei voi valita ennen valmistajaa
             > 
               <option value=""  >Valitse sulake</option>
               {sulakekoot.map((val) => (
@@ -70,7 +72,7 @@ const Paakeskus = (props) => {
       
       {selectedSulake && (
         <div style={{ marginLeft: 10}}>
-          <p>Ip rajoitettu  {10**selectedSulake.bToJson * props.Icp**selectedSulake.k_ka}</p>
+          <p>Ip rajoitettu  {IpRajoitettu.toPrecision(6)}</p>
         </div>
       )
       }    

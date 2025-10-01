@@ -59,6 +59,7 @@ function App() {
         <div className='laskurin-kuvaus'  >
           <p>Tällä laskurilla voidaan laskea oikosulkuvirrat määritettävässä kaapelissa tai keskuksessa. 
             Laskenta aloitetaan tallentamalla lomakkeelle verkkoyhtiöltä saadut 3-vaiheiset oikosulkuvirrat.
+          <p></p>
             Laskennassa tarvittava tehokerroin valitaan liittymäpisteen jälkeisen verkon kuormien perusteella.
             Tallennettujen tietojen perusteella laskuri laskee edeltävän liittymäpistettä edeltävän verkon 
             impedanssin, resistanssin ja reaktanssin.</p>

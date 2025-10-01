@@ -19,7 +19,13 @@ console.log(props.checkedIk1)
                 <input id="" type="checkbox" value={props.checkedIk1} onChange={(e) => props.setCheckedIk1(e.target.checked)} />
                 </label>                
             </div>
-
+            <p>Oikosulkuvirtojen laskemista varten tarvitaan liittymispistettä edeltävän verkon resistanssi ja reaktanssi. 
+                Verkkoyhtiöltä saadaan pyytämällä liittymäpisteen oikosulkuvirrat. 
+                Koska oikosulkuvirta on liittymäpisteen käyttöjännitteen ja sitä edeltävän verkon impedanssin osammäärä, 
+                voidaan Thevenin menetelmällä selvittää liittymispistettä edeltävän verkon impedanssi.
+                Impedanssi voidaan edelleen jakaa resistanssiksi ja reaktanssiksi, kun verkon tehokerroin tiedetään.
+                Verkkoyhtiöt säätävät verkkonsa tehokertoimen arvoon 0,995 loistehohäviöiden välttämiseksi. 
+                <b>Tommi: Voidaanko tällä oletuksella määrittää edeltävän verkon resistanssi ja reaktanssi?</b> </p>
             <form className="liittymispiste">
                 {props.checkedIk3 && (
                     <>
