@@ -2,7 +2,8 @@ import { useState } from 'react'
 import Sulakkeet from "./sulake.json"
 
 const Paakeskus = (props) => {
-  const styles = { margin: 0}  
+  const styles = { margin: 0}
+  const [checkedSulake, setCheckedSulake] = useState("") /* Valitaan halutaanko laskea sulakkeen rajoittama oikosulkuvirta */
   const [sulake, setSulake] = useState("")
   const [valmistaja, setValmistaja] = useState("")
   const valmistajat = [... new Set(Sulakkeet.map((s) => s.valmistaja))]
@@ -14,13 +15,13 @@ const Paakeskus = (props) => {
 
   const NeperinLuku = 2.718281
   const kappa = (1.02 + 0.98*NeperinLuku**(-3*(props.resistanssi/props.reaktanssi)))
-  const Ip = kappa * Math.sqrt(2) * props.Icp  
+  // const Ip = kappa * Math.sqrt(2) * props.Icp  
   
   /* SULAKKEEN RAJOITTAMA OIKOSULKUVIRTA */
   let IpRajoitettu = 0
   {selectedSulake && (IpRajoitettu = 10**selectedSulake.bToJson * props.Icp**selectedSulake.k_ka)}
-  let IcpRajoitettu = 0
-  {selectedSulake && (IcpRajoitettu = 10**(1/selectedSulake.k_kak) * 10**(-selectedSulake.bToJson/selectedSulake.k_ka))}
+  const IcpRajoitettu = IpRajoitettu / 2.3
+  // {selectedSulake && (IcpRajoitettu = 10**(1/selectedSulake.k_kak) * 10**(-selectedSulake.bToJson/selectedSulake.k_ka))}
   return (
     <>        
       <h2>{props.keskus}</h2>      
@@ -30,14 +31,14 @@ const Paakeskus = (props) => {
         <p style={styles}>R = {props.resistanssi.toPrecision(3)} Ω</p>
         <p style={styles}>X = {props.reaktanssi.toPrecision(3)} Ω</p>
         <p style={styles}>Icp = {props.Icp.toPrecision(6)} A</p>
-        <p style={styles}>Ip = {Ip.toPrecision(6)} A</p>
+        <p style={styles}>Ip = {props.Ip.toPrecision(6)} A</p>
       
         <label>Haluatko laskea sulakkeen rajoittaman max oikosulkuvirran {props.keskus}en lähdössä?
-          <input id="sulake" type="checkbox" value={props.checked} onChange={(e) => props.setChecked(e.target.checked)} />
-        </label>
+          <input id="sulake" type="checkbox" checked={checkedSulake} onChange={(e) => setCheckedSulake(e.target.checked)} />
+         Kyllä</label>
       </div>
       )}
-      {props.checked && (
+      {checkedSulake && (
         <form>
           <div className="form-row">
             <label htmlFor="valmistaja">Valitse valmistaja</label>  
@@ -72,7 +73,8 @@ const Paakeskus = (props) => {
       
       {selectedSulake && (
         <div style={{ marginLeft: 10}}>
-          <p>Ip rajoitettu  {IpRajoitettu.toPrecision(6)}</p>
+          <p style={styles}>Icp rajoitettu  {IcpRajoitettu.toPrecision(6)}</p>
+          <p style={styles}>Ip rajoitettu  {IpRajoitettu.toPrecision(6)}</p>
         </div>
       )
       }    

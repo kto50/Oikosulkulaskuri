@@ -1,56 +1,76 @@
 import { useState } from 'react'
 import './App.css'
 import Head from './Head.jsx'
-import Ik3 from './Ik3.jsx'
 import Liittymispiste from "./Liittymispiste"
 import Syottokaapelit from "./Syottokaapelit"
 import Lahtotiedot from './Lahtotiedot.jsx'
 import Sahkokeskus from './Sahkokeskus.jsx'
 import Skeskus from './Skeskus.jsx'
 
-function App() {
-  // HEAD
-  /* const [laskuri, setLaskuri] = useState ({
-          ik3: false,
-          ik1: false,
-      }); */
-  const [checkedIk3, setCheckedIk3] = useState("") 
-  const [checkedIk1, setCheckedIk1] = useState("") 
+function Ik3(cosfii, setCosfii) {
   // LIITTYMISPISTE
-  /* const [cosfii, setCosfii] = useState("0.90")
-  const [ik3, setIk3] = useState("") */
-  const [liittymispiste, setLiittymispiste] = useState({
-    ik3: null,
-    cosfii: 0.995,
-    resistanssiIk3: null,
-    reaktanssiIk3: null,
-  })
-  function impedanssi(ik, cosfii) {
-    return 237 / (liittymispiste.ik3 * 100)
-  }
+  /* const [ik3, setIk3] = useState("") */
+  /* const [cosfii, setCosfii] = useState("0.90")  */
+  /* const lpImpedanssi = 237 / (ik3 * 1000)
+  const lpResistanssi =lpImpedanssi * cosfii
+  const lpReaktanssi = Math.sqrt(Math.pow(lpImpedanssi, 2) - Math.pow(lpResistanssi, 2)) */ 
+  // LIITTYMISKAAPELIT
+  const [liittymisKaapeli, setliittymisKaapeli] = useState("") 
+  const [lKPituus, setlKPituus] = useState("")
+  const [lkCount, setlkCount] = useState(1)
+  const lKResistanssi = liittymisKaapeli.resreka20 * lKPituus / 1000 /lkCount 
+  const lKReaktanssi = liittymisKaapeli.reaktanssi * lKPituus / 1000 /lkCount
+  const lKImpedanssi = Math.sqrt(lKResistanssi**2 + lKReaktanssi**2)
+  // PÄÄKESKUS
+  const pkResistanssi = lpResistanssi + lKResistanssi
+  const pkReaktanssi = lpReaktanssi + lKReaktanssi
+  const pkImpedanssi = Math.sqrt((pkResistanssi)**2 +(pkReaktanssi)**2)
+  const voltageFactorC = 1.05
+  const pkIcp = voltageFactorC * 237 / pkImpedanssi
+  /* const pkIcp = 237 / pkImpedanssi  */
+  const pkIp = pkIcp * 2.3
+  /* const pkIpRajoitettu = pkIcp * 
+  const pkIpRajoitettu = pkIp *  */
+  //  ALAKESKUKSEN SYÖTTÖKAAPELIT
+  const [syottoKaapeli1, setsyottoKaapeli1] = useState("")
+  const [sK1pituus, setsK1Pituus] = useState("")
+  const [sK1Count, setsK1Count] = useState(1)
+  const sK1Resistanssi = syottoKaapeli1.resreka20 * sK1pituus / 1000 / sK1Count
+  const sK1Reaktanssi = syottoKaapeli1.reaktanssi * sK1pituus / 1000 / sK1Count
+  const sK1Impedanssi = Math.sqrt(sK1Resistanssi**2 + sK1Reaktanssi**2)
+  //  ALAKESKUS
+  const ak1Resistanssi = pkResistanssi + sK1Resistanssi
+  const ak1Reaktanssi = pkReaktanssi  + sK1Reaktanssi
+  const ak1Impedanssi = Math.sqrt((ak1Resistanssi)**2 
+  +((ak1Reaktanssi)**2))
+  const ak1Icp = 237 / ak1Impedanssi
+  const ak1Ip = ak1Icp * 2.3
+  console.log("sk1")
+  const [keskukset, setKeskukset] = useState([]);
+  const [keskuksenNimi, setKeskuksenNimi] = useState("");
+  const uusikeskus = () => {
+    if (keskuksenNimi.trim() === "") return; // Ei lisätä tyhjää nimeä
+    const uusi = { id: Date.now(), keskus: keskuksenNimi.trim(), };
+    setKeskukset([...keskukset, uusi]);
+    setKeskuksenNimi("");  // Tyhjennetään inputin kenttä
+  };
+  const poistaKeskus = (id) => {
+    setKeskukset(keskukset.filter((k) => k.id !== id));
+  };
+  const paivitakeskus = (id, uusiNimi) => {setKeskukset(
+    keskukset.map((k) => k.id === id ? { ...k, keskukset: uusiNimi } : k)
+    );
+  };
 
   return (
-    <div className='laskurin-kuvaus' >
-      <Head 
-        /* laskuri={laskuri} setLaskuri={setLaskuri}  */
-        checkedIk1={setCheckedIk1} setCheckedIk1={setCheckedIk1}
-        checkedIk3={setCheckedIk3} setCheckedIk3={setCheckedIk3}
-      />
-      {checkedIk3 && (
-        <Liittymispiste
-          liittymispiste={liittymispiste} setLiittymispiste={setLiittymispiste}
-        />)} 
-      
-      {/* {laskuri.ik3 && (<Ik3 
-        cosfii={cosfii} setCosfii={setCosfii} 
-      />)} */}
+    <>
       {/* <Liittymispiste 
         ik3={ik3} setIk3={setIk3}
         cosfii={cosfii} setCosfii={setCosfii}
         impedanssi={lpImpedanssi}
         resistanssi={lpResistanssi}
         reaktanssi={lpReaktanssi}
-      />          
+      />           */}
       <Syottokaapelit 
         cable="Liittymiskaapeli"
         valittuKaapeli={liittymisKaapeli} setValittuKaapeli={setliittymisKaapeli}
@@ -112,9 +132,9 @@ function App() {
         reaktanssi={ak1Reaktanssi}
         Icp={ak1Icp}
         Ip={ak1Ip}        
-      />       */}
-    </div>
+      />      
+    </>
   )
 }
 
-export default App
+export default Ik3
