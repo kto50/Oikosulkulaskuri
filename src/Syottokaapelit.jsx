@@ -17,7 +17,7 @@ export default function Syottokaapelit(props) {
     return (
         <>
             <h2>{props.cable}</h2>
-            <form className="kaapelit">
+            <form className="kaapelit"  onClick={e => e.preventDefault()} >
                 <div className="form-row">
                     <label htmlFor="tyyppi">Tyyppi</label>
                     <select id="tyyppi" onChange={handleChange} defaultValue="" >
@@ -35,11 +35,26 @@ export default function Syottokaapelit(props) {
                     <label htmlFor="pituus">Pituus</label>
                     <input id="pituus" type="number" value={props.pituus} onChange={(e) => props.setPituus(e.target.value)} placeholder="metriä"/>
                 </div>
-                
                 <div className="form-row">
+                <label htmlFor="lkm">Lukumäärä</label>
+                <p style={{ border: "2px solid black", borderRadius: "6px", padding: "4px 12px"}} >{props.lkm}</p>
+                <button 
+                    onClick={() => props.setLkm(props.lkm > 1 ? props.lkm - 1 : props.lkm)} 
+                    className="px-4 py-2 bg-red-500 text-white rounded-lg"
+                >
+                - Vähennä
+                </button>
+                <button 
+                    onClick={() => props.setLkm(props.lkm + 1)} 
+                    className="px-4 py-2 bg-green-500 text-white rounded-lg"
+                >
+                + Lisää
+                </button>                   
+            </div>  
+                {/* <div className="form-row">
                     <label htmlFor="lkm">Lukumäärä</label>
                     <input id="lkm" type="number" value={props.lkm} onChange={(e) => props.setLkm(e.target.value)} />
-                </div> 
+                </div>  */}
                 {/* <div className="form-row">
                     <label htmlFor="pen-ala">PEN poikkipinta-ala</label>
                     <input id="pen-ala" type="number" placeholder="neliömilliä" min="1.5" max="300" value={penala} onChange={(e) => setPenala(e.target.value)} />
@@ -51,8 +66,9 @@ export default function Syottokaapelit(props) {
                         <option value="Cu">Kupari</option>
                     </select>
 
-                </div> */}                
+                </div> */}         
             </form>
+                 
             <div>
                 {props.valittuKaapeli && (
                     <div>

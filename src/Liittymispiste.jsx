@@ -42,9 +42,7 @@ console.log(props.checkedIk1)
                     </>
                 )}
                 
-                
-                
-                {props.checkedIk1 && (
+                {props.checkedIk1 && props.checkedIk1 && (
                     <div className="form-row">
                         <label htmlFor="ik1">1-vaiheinen oikosukuvirta</label>
                         <input id="ik1" type="number" value={ik1} onChange={(e) => setIk1(e.target.value)} placeholder="kA" />
@@ -52,7 +50,7 @@ console.log(props.checkedIk1)
                 )}
             </form>
             <div className="verkko">
-                {props.ik3 && (
+                {props.checkedIk3 && props.ik3 && (
                     <div>
                         <p>Annetun 3-vaiheisen oikosulkuvirran ja tehokertoimen perusteella liittymäpistettä edeltävän verkon 
                         impedanssiksi Z, resistanssiksi R ja reaktanssiksi X saadaan:</p>
