@@ -1,12 +1,10 @@
 import { useState } from "react"
-import D1Taulu from "./csvjson.json"
 
 export default function Liittymispiste(props) {
     const styles = { margin: 0, marginLeft: 10}
     // console.log(props)
     const [ik1, setIk1] = useState("")
-console.log("ik1")
-console.log(props.checkedIk1)
+
     return (
         <>
             <h2>Liittymispiste</h2>
@@ -54,9 +52,9 @@ console.log(props.checkedIk1)
                     <div>
                         <p>Annetun 3-vaiheisen oikosulkuvirran ja tehokertoimen perusteella liittymäpistettä edeltävän verkon 
                         impedanssiksi Z, resistanssiksi R ja reaktanssiksi X saadaan:</p>
-                        <p style={styles}>Z = {props.impedanssi.toPrecision(3)} Ω</p>
-                        <p style={styles}>R = {props.resistanssi.toPrecision(3)} Ω</p>
-                        <p style={styles}>X = {props.reaktanssi.toPrecision(3)} Ω</p>
+                        <p style={styles}>Z = {props.impedanssi.toPrecision(3)} Ω (lpImpedanssi = 237 / (ik3 * 1000))</p>
+                        <p style={styles}>R = {props.resistanssi.toPrecision(3)} Ω (lpResistanssi = lpImpedanssi * cosfii)</p>
+                        <p style={styles}>X = {props.reaktanssi.toPrecision(3)} Ω (lpReaktanssi = Math.sqrt(Math.pow(lpImpedanssi, 2) - Math.pow(lpResistanssi, 2))) </p>
                     </div> ) }
                 
             </div>

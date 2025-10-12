@@ -1,5 +1,6 @@
 import { useState } from "react"
-import D1Taulu from "./csvjson.json"
+
+import D1Taulu from "./kaapelit.json"
 
 export default function Syottokaapelit(props) {
     // console.log(props)
@@ -10,9 +11,13 @@ export default function Syottokaapelit(props) {
 
     const handleChange = (e) => {
         const kaapeliNimi = e.target.value;
-        const kaapeliObj = D1Taulu.find((k) => k.kaapeli === kaapeliNimi);
+        const kaapeliObj = D1Taulu.find((k) =>
+        props.cable === "Liittymiskaapeli"
+            ? k.kaapeli4 === kaapeliNimi
+            : k.kaapeli5 === kaapeliNimi
+        );
         props.setValittuKaapeli(kaapeliObj);
-    }
+    };
 
     return (
         <>
@@ -24,11 +29,14 @@ export default function Syottokaapelit(props) {
                         <option value="" disabled>
                             Valitse kaapeli
                         </option>
-                        {D1Taulu.map((k) => (
-                            <option key={k.kaapeli} value={k.kaapeli}  >
-                                {k.kaapeli}
+                        {D1Taulu.map((k, i) => {
+                            const valinta = props.cable === "Liittymiskaapeli" ? k.kaapeli4 : k.kaapeli5;
+                            return (
+                            <option key={`${props.cable}-${i}`} value={valinta}>
+                                {valinta}
                             </option>
-                        ))}
+                            );
+                        })}
                     </select>
                 </div>
                 <div className="form-row">
@@ -36,21 +44,21 @@ export default function Syottokaapelit(props) {
                     <input id="pituus" type="number" value={props.pituus} onChange={(e) => props.setPituus(e.target.value)} placeholder="metriä"/>
                 </div>
                 <div className="form-row">
-                <label htmlFor="lkm">Lukumäärä</label>
-                <p style={{ border: "2px solid black", borderRadius: "6px", padding: "4px 12px"}} >{props.lkm}</p>
-                <button 
-                    onClick={() => props.setLkm(props.lkm > 1 ? props.lkm - 1 : props.lkm)} 
-                    className="px-4 py-2 bg-red-500 text-white rounded-lg"
-                >
-                - Vähennä
-                </button>
-                <button 
-                    onClick={() => props.setLkm(props.lkm + 1)} 
-                    className="px-4 py-2 bg-green-500 text-white rounded-lg"
-                >
-                + Lisää
-                </button>                   
-            </div>  
+                    <label htmlFor="lkm">Lukumäärä</label>
+                    <p style={{ border: "2px solid black", borderRadius: "6px", padding: "4px 12px"}} >{props.count}</p>
+                    <button 
+                        onClick={() => props.setCount(props.count > 1 ? props.count - 1 : props.count)} 
+                        className="px-4 py-2 bg-red-500 text-white rounded-lg"
+                    >
+                    - Vähennä
+                    </button>
+                    <button 
+                        onClick={() => props.setCount(props.count + 1)} 
+                        className="px-4 py-2 bg-green-500 text-white rounded-lg"
+                    >
+                    + Lisää
+                    </button>                   
+                </div>  
                 {/* <div className="form-row">
                     <label htmlFor="lkm">Lukumäärä</label>
                     <input id="lkm" type="number" value={props.lkm} onChange={(e) => props.setLkm(e.target.value)} />
@@ -72,8 +80,8 @@ export default function Syottokaapelit(props) {
             <div>
                 {props.valittuKaapeli && (
                     <div>
-                        <p style={{marginBottom: 0}} >Kaapelityyppi: {props.valittuKaapeli.kaapeli}</p>
-                        <p style={styles} >R = {props.valittuKaapeli.resistanssi} Ω / km</p> 
+                        <p style={{marginBottom: 0}} >Kaapelityyppi: (kaapelin arvot Prysmian taulukosta. En verrannut vielä kaikkia k.tyyppejä Rekan vastaaviin, mutta arvot näyttivät samoilta))</p>
+                        <p style={styles} >R = {props.valittuKaapeli.resreka20} Ω / km</p> 
                         <p style={styles} >X = {props.valittuKaapeli.reaktanssi} Ω / km - jos lopussa oli nollia, ne tippuivat pois json tiedostoa luotaessa</p>                       
                     </div>                
                 )}
@@ -82,11 +90,11 @@ export default function Syottokaapelit(props) {
                         {(<p style={styles}>
                             Pituus: {props.pituus} metriä</p>)}
                         {(<p style={styles}>
-                            R = {props.resistanssi} Ω / syöttökaapeli</p> ) }
+                            R = {props.resistanssi} Ω / syöttökaapeli (return R * pituus / 1000 / count) </p> ) }
                         {(<p style={styles}>
-                            X = {props.reaktanssi} Ω / syöttökaapeli</p> ) }
+                            X = {props.reaktanssi} Ω / syöttökaapeli (return X * pituus / 1000 / count) </p> ) }
                         {(<p style={styles}>
-                            Z = {props.impedanssi.toPrecision(4)} Ω / syöttökaapeli</p> ) }
+                            Z = {props.impedanssi.toPrecision(4)} Ω / syöttökaapeli (return Math.sqrt(R**2 + X**2)) </p> ) }
 
                     </div>
                 )}
