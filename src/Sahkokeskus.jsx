@@ -6,16 +6,23 @@ const Paakeskus = (props) => {
   const styles = { margin: 0}  
   const [sulake, setSulake] = useState("")
   const [valmistaja, setValmistaja] = useState("")
-  const valmistajat = [... new Set(Sulakkeet.map((s) => s.valmistaja))]
+  const valmistajat = [...new Set(Sulakkeet.map((s) => s.valmistaja))]
   const sulakekoot = Sulakkeet
     .filter((s) => s.valmistaja === valmistaja)
     .map((s) => s.sulake);
   const selectedSulake = Sulakkeet.find((s) => s.valmistaja === valmistaja && s.sulake == sulake)
   /* TEHOLLINEN JA HUIPPUOIKOSULKUVIRTA */
+  /* const hasData = props.resistanssi && props.reaktanssi && props.impedanssi;
+  let Icp = 0;
+  let Ip = 0;
+  let kappa1 = 0 */
+  
+ /*  if (hasData) { */
   const kappa1 = kappa(props.resistanssi, props.reaktanssi)
   const voltageFactorC = 1.05
   const Icp = voltageFactorC * 237 / props.impedanssi
-  const Ip = kappa1 * Math.sqrt(2) * Icp  
+  const Ip = kappa1 * Math.sqrt(2) * Icp
+ 
   /* SULAKKEEN RAJOITTAMA OIKOSULKUVIRTA */
   let IpRajoitettu = 0
   {selectedSulake && (IpRajoitettu = 10**selectedSulake.bToJson * Icp**selectedSulake.k_ka)}
@@ -30,9 +37,11 @@ const Paakeskus = (props) => {
         <p style={styles}>R = {props.resistanssi.toPrecision(3)} Ω (lpResistanssi + lKResistanssi) </p>
         <p style={styles}>X = {props.reaktanssi.toPrecision(3)} Ω (lpReaktanssi + lKReaktanssi) </p>
         <p style={styles}>Z = {props.impedanssi.toPrecision(3)} Ω (return Math.sqrt(r**2 + x**2)) </p>
-        <p style={styles}>Icp = {Icp.toPrecision(6)} A(voltageFactorC(1,05 pitäisikö olla 1?) * 237 / pkImpedanssi)</p>
-        <p style={styles}>Ip = {Ip.toPrecision(6)} A  </p>
-        {/* <p style={styles}>IpK = {IpK.toPrecision(6)} A</p> */}
+        {Number.isFinite(Icp) && (
+          <div style={{ marginLeft: 10 }}>
+            <p style={styles}>Icp = {Icp.toPrecision(6)} A(voltageFactorC(1,05 pitäisikö olla 1?) * 237 / pkImpedanssi)</p>
+            <p style={styles}>Ip = {Ip.toPrecision(6)} A  </p>
+          </div>)}
         <p style={styles}>kappa1 = {kappa1}</p>
       
         <label>Haluatko laskea sulakkeen rajoittaman max oikosulkuvirran {props.keskus}en lähdössä?
@@ -75,10 +84,10 @@ const Paakeskus = (props) => {
       
       {selectedSulake && (
         <div style={{ marginLeft: 10}}>
-          <p style={{styles}}>Ip rajoitetun laskemiseksi määritettiin  "cut-off" kuvaajasta 
+          <p style={styles}>Ip rajoitetun laskemiseksi määritettiin  "cut-off" kuvaajasta 
             kyseisen sulakkeen suoran yhtälö. Yhtälöstä ratkaistiin Ip=10**b * Icp**k</p>
-          <p style={{styles}}>Ip rajoitettu  {IpRajoitettu}</p>
-          <p style={{styles}}>Icp rajoitettu  {IcpRajoitettu} (= Ip / (kappa1 * Math.sqrt(2)))</p>
+          <p style={styles}>Ip rajoitettu  {IpRajoitettu.toPrecision(6)}</p>
+          <p style={styles}>Icp rajoitettu  {IcpRajoitettu.toPrecision(6)} (= Ip / (kappa1 * Math.sqrt(2)))</p>
         </div>
       )
       }

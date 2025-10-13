@@ -10,7 +10,7 @@ import { Xkaapeli } from './kaavat.js'
 
 function Laskuri() {
 
-  // Liittymiste.jsx propsit:
+  // LIITTYMISPISTE
   const [checkedIk3, setCheckedIk3] = useState(false)    
   const [checkedIk1, setCheckedIk1] = useState(false)  
   const [ik3, setIk3] = useState("")
@@ -18,7 +18,6 @@ function Laskuri() {
   const lpImpedanssi = 237 / (ik3 * 1000) 
   const lpResistanssi = lpImpedanssi * cosfii
   const lpReaktanssi = Math.sqrt(Math.pow(lpImpedanssi, 2) - Math.pow(lpResistanssi, 2))   
-  // Syottokaapelit.jsx propsit:
   //   LIITTYMISKAAPELIT
   const [liittymisKaapeli, setliittymisKaapeli] = useState("") 
   const [lKPituus, setlKPituus] = useState("")
@@ -27,12 +26,10 @@ function Laskuri() {
   const lKReaktanssi = Xkaapeli(liittymisKaapeli.reaktanssi, lKPituus, lkCount)
   const lKImpedanssi = Zkaapeli(lKResistanssi, lKReaktanssi)
   // PÄÄKESKUS
-  // const [lkLkm, setlkLkm] = useState(1)
   const pkResistanssi = lpResistanssi + lKResistanssi
   const pkReaktanssi = lpReaktanssi + lKReaktanssi
   const pkImpedanssi = Zkaapeli(pkResistanssi, pkReaktanssi)
   const [checkedSulake, setCheckedSulake] = useState("")
-
   //   ALAKESKUKSEN SYÖTTÖKAAPELIT
   const [syottoKaapeli1, setsyottoKaapeli1] = useState("")
   const [sK1pituus, setsK1Pituus] = useState("")
@@ -41,7 +38,6 @@ function Laskuri() {
   const sK1Reaktanssi = syottoKaapeli1.reaktanssi * sK1pituus / 1000 / sK1Count
   const sK1Impedanssi = Math.sqrt(sK1Resistanssi**2 + sK1Reaktanssi**2)
   //  ALAKESKUS
-  // const [sK1Lkm, setsK1Lkm] = useState("1")
   const ak1Resistanssi = pkResistanssi + sK1Resistanssi
   const ak1Reaktanssi = pkReaktanssi  + sK1Reaktanssi
   const ak1Impedanssi = Zkaapeli(ak1Resistanssi, ak1Reaktanssi)
@@ -69,7 +65,6 @@ function Laskuri() {
           cable="Liittymiskaapeli"
           valittuKaapeli={liittymisKaapeli} setValittuKaapeli={setliittymisKaapeli}
           pituus={lKPituus} setPituus={setlKPituus}  
-          // lkm={lkLkm} setLkm={setlkLkm} 
           count={lkCount} setCount={setlkCount}
           resistanssi={lKResistanssi}
           reaktanssi={lKReaktanssi}
@@ -88,7 +83,6 @@ function Laskuri() {
           cable="Alakeskuksen syöttökaapeli" 
           valittuKaapeli={syottoKaapeli1} setValittuKaapeli={setsyottoKaapeli1}
           pituus={sK1pituus} setPituus={setsK1Pituus}
-          // lkm={sK1Lkm} setLkm={setsK1Lkm} 
           count={sK1Count} setCount={setsK1Count} 
           resistanssi={sK1Resistanssi}
           reaktanssi={sK1Reaktanssi}

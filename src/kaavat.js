@@ -21,3 +21,11 @@ export function Ip(r, x) {
     return kappa(r, x) 
 }
 
+export function peR(materiaali,ala) {
+    if (materiaali === 'Al') {
+        return 35.898 * ala**-0.985
+    } if (materiaali === 'Cu') {
+        return 21.717 * ala**-0.986
+    }
+    
+}
