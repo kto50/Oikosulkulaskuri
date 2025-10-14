@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import Liittymispiste from './Liittymispiste'
+import Syottokaapelit from './Syottokaapelit'
 
 const Ik1 = ( props ) => {
 
@@ -20,6 +21,17 @@ const Ik1 = ( props ) => {
                 reaktanssi={reaktanssi} setReaktanssi={setReaktanssi}
                 impedanssi={impedanssi} setImpedanssi={setImpedanssi}
             />
+            {(resistanssi > 0) && (<Syottokaapelit 
+                cable="Liittymiskaapeli"
+                checkedIk1={props.checkedIk1} 
+                resistanssi={resistanssi} setResistanssi={setResistanssi}
+                reaktanssi={reaktanssi} setReaktanssi={setReaktanssi}
+                impedanssi={impedanssi} setImpedanssi={setImpedanssi}
+                /* valittuKaapeli={liittymisKaapeli} setValittuKaapeli={setliittymisKaapeli}
+                pituus={lKPituus} setPituus={setlKPituus}  
+                count={lkCount} setCount={setlkCount}
+                  */    
+            />)}
             {/* {ik3 && cosfii && (<Syottokaapelit 
                 cable="Liittymiskaapeli"
                 valittuKaapeli={liittymisKaapeli} setValittuKaapeli={setliittymisKaapeli}

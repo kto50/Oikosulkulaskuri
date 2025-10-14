@@ -1,17 +1,36 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import Kaapelit from "./kaapelit.json"
-import { peR } from "./kaavat"
+import { peR, Rkaapeli, Xkaapeli, Zkaapeli } from "./kaavat"
 
 export default function Syottokaapelit(props) {
     // console.log(props)
     const styles = {  marginBottom: 0, marginTop: 0, marginLeft: 10}  
     
-    const [penala, setPenala] =useState("")
-    const [materiaali, setMateriaali] =useState("")
-    const peR1 = peR(materiaali, penala )
-    //console.log(props)
+    const [values, setValues] = useState({
+        pituus: null,
+        penAla: null,
+        materiaali: null,
+        resistanssi: null,
+        reaktanssi: null,
+        impedanssi: null,
+    });
+    const handleValues = (e) => {
+        const { name, value } = e.target;
+        setValues({ ...values, [name]: value });
+    };
 
+    const [count, setCount] = useState(1)
+    const handleCountUp = () => {
+        setCount(count + 1);
+    }
+    const handleCountDown = () => {
+        setCount(count > 1 ? count - 1 : count);
+
+    };
+    /* const peR1 = peR(materiaali, penala ) */
+    //console.log(props)
+    const [valittuKaapeli, setValittuKaapeli] =useState("")
     const handleChange = (e) => {
         const kaapeliNimi = e.target.value;
         const kaapeliObj = Kaapelit.find((k) =>
@@ -19,8 +38,31 @@ export default function Syottokaapelit(props) {
                 ? k.kaapeli4 === kaapeliNimi
                 : k.kaapeli5 === kaapeliNimi
             );
-        props.setValittuKaapeli(kaapeliObj);
+        setValittuKaapeli(kaapeliObj);
     };
+
+    useEffect(() =>{
+        if (!valittuKaapeli || !values.pituus) return;
+        setValues((prevValues) => {
+            const calculatedResistanssi = Rkaapeli(valittuKaapeli.resreka20, prevValues.pituus, count);
+            const calculatedReaktanssi = Xkaapeli(valittuKaapeli.reaktanssi,  prevValues.pituus, count);
+            return {
+                ...prevValues,
+                resistanssi: calculatedResistanssi,
+                reaktanssi: calculatedReaktanssi,
+                impedanssi: Zkaapeli(calculatedResistanssi, calculatedReaktanssi)
+            };
+        });
+    }, [valittuKaapeli, values.pituus, count])
+
+    /* useEffect(() => {
+        impedanssi = 237 / (props.ik * 1000)
+        const resistanssi = impedanssi * props.cosfii
+        updateNumberByIndex(0, resistanssi, props.setResistanssi)
+        console.log(props.resistanssi)
+    },[props.ik, props.cosfii])
+     */
+
 
     return (
         <>
@@ -44,65 +86,75 @@ export default function Syottokaapelit(props) {
                 </div>
                 <div className="form-row">
                     <label htmlFor="pituus">Pituus</label>
-                    <input id="pituus" type="number" value={props.pituus} onChange={(e) => props.setPituus(e.target.value)} placeholder="metriä"/>
+                    <input id="pituus" name="pituus" type="number" value={values.pituus} onChange={handleValues} placeholder="metriä"/>
                 </div>
                 <div className="form-row">
                     <label htmlFor="lkm">Lukumäärä</label>
-                    <p style={{ border: "2px solid black", borderRadius: "6px", padding: "4px 12px"}} >{props.count}</p>
+                    <p style={{ border: "2px solid black", borderRadius: "6px", padding: "4px 12px"}} >{count}</p>
                     <button 
-                        onClick={() => props.setCount(props.count > 1 ? props.count - 1 : props.count)} 
+                        onClick={handleCountDown} 
                         className="px-4 py-2 bg-red-500 text-white rounded-lg"
                     >
                     - Vähennä
                     </button>
                     <button 
-                        onClick={() => props.setCount(props.count + 1)} 
+                        onClick={handleCountUp} 
                         className="px-4 py-2 bg-green-500 text-white rounded-lg"
                     >
                     + Lisää
                     </button>                   
                 </div>  
-                <div className="form-row">
-                    <label htmlFor="pen-ala">PEN poikkipinta-ala</label>
-                    <input id="pen-ala" type="number" placeholder="neliömilliä" min="1.5" max="300" value={penala} onChange={(e) => setPenala(e.target.value)} />
-                </div>
-                <div className="form-row">
-                    <label htmlFor="pen-materiaali">PEN materiaali</label>
-                    <select id="pen-materiaali" name="materiaali" value={materiaali} onChange={e => setMateriaali(e.target.value)} >
-                        <option value="Al">Alumiini</option>
-                        <option value="Cu">Kupari</option>
-                    </select>
-                </div>         
+                {props.checkedIk1 && (<div>
+                    <div className="form-row">
+                        <label htmlFor="penAla">PEN poikkipinta-ala</label>
+                        <input id="penAla" name="penAla" type="number" placeholder="neliömilliä" min="1.5" max="300" value={values.penAla} onChange={handleValues} />
+                    </div>
+                    <div className="form-row">
+                        <label htmlFor="pen-materiaali">PEN materiaali</label>
+                        <select id="pen-materiaali" name="pen-materiaali" value={values.materiaali} onChange={handleValues} >
+                            <option value="Al">Alumiini</option>
+                            <option value="Cu">Kupari</option>
+                        </select>
+                    </div> 
+                </div>)}        
             </form>
                  
             <div>
-                {props.valittuKaapeli && (
+                {valittuKaapeli && (
                     <div>
-                        <h3 style={{margin: 0}}>Ik3</h3>            
-                        <p style={{marginBottom: 0}} >Kaapelityyppi: (kaapelin arvot Prysmian taulukosta. En verrannut vielä kaikkia k.tyyppejä Rekan vastaaviin, mutta arvot näyttivät samoilta))</p>
-                        <p style={styles} >R = {props.valittuKaapeli.resreka20} Ω / km</p> 
-                        <p style={styles} >X = {props.valittuKaapeli.reaktanssi} Ω / km - jos lopussa oli nollia, ne tippuivat pois json tiedostoa luotaessa</p>                       
+                        {props.checkedIk1 ? 
+                        <>
+                            <h3 style={{margin: 0}}>Ik1</h3> RESISTANSSIT OVAT IK3:N MUKAISET. MUUTA!            
+                            <p style={{marginBottom: 0}} >Kaapelityyppi: (kaapelin arvot Prysmian taulukosta. En verrannut vielä kaikkia k.tyyppejä Rekan vastaaviin, mutta arvot näyttivät samoilta))</p>
+                            <p style={styles} >R = {valittuKaapeli.resreka20} Ω / km</p> 
+                            <p style={styles} >X = {valittuKaapeli.reaktanssi} Ω / km - jos lopussa oli nollia, ne tippuivat pois json tiedostoa luotaessa</p>                       
+                        </>
+                            : <h3 style={{margin: 0}}>Ik3</h3>}
+                            <p style={{marginBottom: 0}} >Kaapelityyppi: (kaapelin arvot Prysmian taulukosta. En verrannut vielä kaikkia k.tyyppejä Rekan vastaaviin, mutta arvot näyttivät samoilta))</p>
+                            <p style={styles} >R = {valittuKaapeli.resreka20} Ω / km</p> 
+                            <p style={styles} >X = {valittuKaapeli.reaktanssi} Ω / km - jos lopussa oli nollia, ne tippuivat pois json tiedostoa luotaessa</p>                       
+                       
                     </div>                
                 )}
-                {props.pituus && (
+                {values.pituus && (
                     <div>
                         {(<p style={styles}>
-                            Pituus: {props.pituus} metriä</p>)}
+                            Pituus: {values.pituus} metriä</p>)}
                         {(<p style={styles}>
-                            R = {props.resistanssi} Ω / syöttökaapeli (return R * pituus / 1000 / count) </p> ) }
+                            R = {values.resistanssi?.toPrecision(6) ?? "-"} Ω / syöttökaapeli (return R * values.pituus / 1000 / count) </p> ) }
                         {(<p style={styles}>
-                            X = {props.reaktanssi} Ω / syöttökaapeli (return X * pituus / 1000 / count) </p> ) }
+                            X = {values.reaktanssi?.toPrecision(6) ?? "-"} Ω / syöttökaapeli (return X * values.pituus / 1000 / count) </p> ) }
                         {(<p style={styles}>
-                            Z = {props.impedanssi.toPrecision(4)} Ω / syöttökaapeli (return Math.sqrt(R**2 + X**2)) </p> ) }
+                            Z = {values.impedanssi?.toPrecision(6) ?? "-"} Ω / syöttökaapeli </p> ) }
 
                     </div>
                 )}
-                {peR1 && (
+                {/* {peR1 && (
                     <div>
                         <h3>Ik1</h3>
-                        <p>{(peR1 * props.pituus + props.impedanssi).toPrecision(6)}</p>
+                        <p>{(peR1 * values.pituus + props.impedanssi).toPrecision(6)}</p>
                     </div>
-                )}
+                )} */}
             </div>
         </>
     )

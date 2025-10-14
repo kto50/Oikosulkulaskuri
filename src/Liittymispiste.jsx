@@ -1,9 +1,15 @@
 import { useEffect, useRef, useState } from "react"
-import { updateNumberByIndex } from "./kaavat";
 
 export default function Liittymispiste(props) {
     const styles = { margin: 0, marginLeft: 10}
-    console.log(props)
+    // console.log(props)
+    const [values, setValues] = useState({
+        ik: null,
+        cosfii: null,
+        impedanssi: null,
+        resistanssi: null,
+        reaktanssi: null,
+    });
 
     const ikRef = useRef();
     const cosfiiRef = useRef();
@@ -18,11 +24,11 @@ export default function Liittymispiste(props) {
         const resistanssi = impedanssi * cosfii;
         const reaktanssi = Math.sqrt(Math.pow(impedanssi, 2) - Math.pow(resistanssi, 2));
 
-        /* props.setIk(ik);
-        props.setCosfii(cosfii); */
         props.setImpedanssi(impedanssi);
         props.setResistanssi(resistanssi);
         props.setReaktanssi(reaktanssi);
+
+        setValues({ ik, cosfii, impedanssi, resistanssi, reaktanssi });
         console.log({ik, cosfii,  impedanssi, resistanssi, reaktanssi });
     }
     /* useEffect(() => {
@@ -64,9 +70,9 @@ export default function Liittymispiste(props) {
                         impedanssiksi Z, resistanssiksi R ja reaktanssiksi X saadaan:</p> : 
                         <p>Annetun 1-vaiheisen oikosulkuvirran ja tehokertoimen perusteella liittymäpistettä edeltävän verkon 
                         impedanssiksi Z, resistanssiksi R ja reaktanssiksi X saadaan:</p>}
-                        <p style={styles}>Z = {props.impedanssi.toPrecision(3)} Ω (lpImpedanssi = 237 / (ik3 * 1000))</p>
-                        <p style={styles}>R = {props.resistanssi.toPrecision(3)} Ω (lpResistanssi = lpImpedanssi * cosfii)</p>
-                        <p style={styles}>X = {props.reaktanssi.toPrecision(3)} Ω (lpReaktanssi = Math.sqrt(Math.pow(lpImpedanssi, 2) - Math.pow(lpResistanssi, 2))) </p>
+                        <p style={styles}>Z = {values.impedanssi.toPrecision(3)} Ω (lpImpedanssi = 237 / (ik3 * 1000))</p>
+                        <p style={styles}>R = {values.resistanssi.toPrecision(3)} Ω (lpResistanssi = lpImpedanssi * cosfii)</p>
+                        <p style={styles}>X = {values.reaktanssi.toPrecision(3)} Ω (lpReaktanssi = Math.sqrt(Math.pow(lpImpedanssi, 2) - Math.pow(lpResistanssi, 2))) </p>
                     </div> ) }
                 
             </div>

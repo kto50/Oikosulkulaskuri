@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Liittymispiste from './Liittymispiste'
 import Syottokaapelit from './Syottokaapelit'
 
+/* LIITTYMISPISTE */
 const Ik3 = ( props ) => {
     console.log(props)
   /* const [ik, setIk] = useState()
@@ -10,6 +11,7 @@ const Ik3 = ( props ) => {
   const [impedanssi, setImpedanssi] = useState([])
   const [resistanssi, setResistanssi] = useState([])
   const [reaktanssi, setReaktanssi] = useState([])
+/* LIITTYMISKAAPELIT */
 
   return (
     <>
@@ -21,8 +23,12 @@ const Ik3 = ( props ) => {
             reaktanssi={reaktanssi} setReaktanssi={setReaktanssi}
             impedanssi={impedanssi} setImpedanssi={setImpedanssi}
         />
-        {resistanssi && (<Syottokaapelit 
+        {(impedanssi > 0) && (<Syottokaapelit 
             cable="Liittymiskaapeli"
+            checkedIk3={props.checkedIk3} 
+            resistanssi={resistanssi} setResistanssi={setResistanssi}
+            reaktanssi={reaktanssi} setReaktanssi={setReaktanssi}
+            impedanssi={impedanssi} setImpedanssi={setImpedanssi}
             /* valittuKaapeli={liittymisKaapeli} setValittuKaapeli={setliittymisKaapeli}
             pituus={lKPituus} setPituus={setlKPituus}  
             count={lkCount} setCount={setlkCount}

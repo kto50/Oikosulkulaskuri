@@ -29,11 +29,11 @@ export function peR(materiaali,ala) {
     }    
 }
 
-export function updateNumberByIndex(indexToUpdate, newNumber, setNumbers) {
+/* export function updateNumberByIndex(indexToUpdate, newNumber, setNumbers) {
     setNumbers(prevNumbers => prevNumbers.map((number, index) => {
         if (index === indexToUpdate) {
             return newNumber;
         }
         return number;
     }));
-}
+} */

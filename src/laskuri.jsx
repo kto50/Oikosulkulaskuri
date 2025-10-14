@@ -3,9 +3,9 @@ import Head from './Head.jsx'
 import Ik3 from './Ik3.jsx'
 import Ik1 from './Ik1.jsx'
 // import Liittymispiste from "./Liittymispiste"
-import Syottokaapelit from "./Syottokaapelit"
+/* import Syottokaapelit from "./Syottokaapelit"
 import Sahkokeskus from './Sahkokeskus.jsx'
-
+ */
 // funktiot
 import { Zkaapeli } from './kaavat.js'
 import { Rkaapeli } from './kaavat.js'
