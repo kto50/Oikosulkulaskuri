@@ -16,8 +16,8 @@ const Ik1 = ( props ) => {
                 checkedIk1={props.checkedIk1} 
                /*  ik={ik} setIk={setIk}
                 cosfii={cosfii} setCosfii={setCosfii} */
-                resistanssi={resistanssi}
-                reaktanssi={reaktanssi}
+                resistanssi={resistanssi} setResistanssi={setResistanssi}
+                reaktanssi={reaktanssi} setReaktanssi={setReaktanssi}
                 impedanssi={impedanssi} setImpedanssi={setImpedanssi}
             />
             {/* {ik3 && cosfii && (<Syottokaapelit 

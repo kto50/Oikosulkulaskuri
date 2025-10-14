@@ -58,10 +58,12 @@ export default function Liittymispiste(props) {
                 
             </form>
             <div className="verkko">
-                {props.checkedIk3 && (props.resistanssi > 0) && (
-                    <div>
+                {(props.resistanssi > 0) && (
+                    <div>{props.checkedIk3 ? 
                         <p>Annetun 3-vaiheisen oikosulkuvirran ja tehokertoimen perusteella liittymäpistettä edeltävän verkon 
-                        impedanssiksi Z, resistanssiksi R ja reaktanssiksi X saadaan:</p>
+                        impedanssiksi Z, resistanssiksi R ja reaktanssiksi X saadaan:</p> : 
+                        <p>Annetun 1-vaiheisen oikosulkuvirran ja tehokertoimen perusteella liittymäpistettä edeltävän verkon 
+                        impedanssiksi Z, resistanssiksi R ja reaktanssiksi X saadaan:</p>}
                         <p style={styles}>Z = {props.impedanssi.toPrecision(3)} Ω (lpImpedanssi = 237 / (ik3 * 1000))</p>
                         <p style={styles}>R = {props.resistanssi.toPrecision(3)} Ω (lpResistanssi = lpImpedanssi * cosfii)</p>
                         <p style={styles}>X = {props.reaktanssi.toPrecision(3)} Ω (lpReaktanssi = Math.sqrt(Math.pow(lpImpedanssi, 2) - Math.pow(lpResistanssi, 2))) </p>
