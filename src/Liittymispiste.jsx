@@ -33,7 +33,6 @@ export default function Liittymispiste(props) {
     },[props.ik, props.cosfii])
      */
 
-
     return (
         <>
             <h2>Liittymispiste</h2>
@@ -59,7 +58,7 @@ export default function Liittymispiste(props) {
                 
             </form>
             <div className="verkko">
-                {props.checkedIk3 && ik && (
+                {props.checkedIk3 && (props.resistanssi > 0) && (
                     <div>
                         <p>Annetun 3-vaiheisen oikosulkuvirran ja tehokertoimen perusteella liittymäpistettä edeltävän verkon 
                         impedanssiksi Z, resistanssiksi R ja reaktanssiksi X saadaan:</p>
