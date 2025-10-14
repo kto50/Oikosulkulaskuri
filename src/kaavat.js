@@ -1,4 +1,4 @@
-// Kaapelin resistanssi ohm/m
+/* Kaapelin resistanssi ohm/m */
 export function Rkaapeli(r, pituus, count) {
     return r * pituus / 1000 / count
 }
@@ -26,6 +26,14 @@ export function peR(materiaali,ala) {
         return 35.898 * ala**-0.985
     } if (materiaali === 'Cu') {
         return 21.717 * ala**-0.986
-    }
-    
+    }    
+}
+
+export function updateNumberByIndex(indexToUpdate, newNumber, setNumbers) {
+    setNumbers(prevNumbers => prevNumbers.map((number, index) => {
+        if (index === indexToUpdate) {
+            return newNumber;
+        }
+        return number;
+    }));
 }
