@@ -1,0 +1,38 @@
+LISTA OBJEKTEISTA, JOISTA VIKAPAIKAN RESISTANSSI KOOSTUU
+-liittymispisteen yläpuolinen verkko
+-liittymiskaapeli, alakeskusten syöttökaapelit ... 
+-näiden perusteella laskettaisiin arvot keskuksille
+-jokaisella keskuksella olisi juokseva id,
+ ja sille summattaisiin tämän tiedoston objekteista tiedot id1 - keskuksen-id + 1.
+ 
+
+
+[
+    {
+    "id": 1,
+    "tunniste": "liittymiskaapeli", 
+    "ala": 16,
+    "resistanssid180": 2.324,
+    "resreka20": 1.91,
+    "reaktanssi": 0.09,
+    "impedansid180": 2.326,
+    "impedansi20": 2.326,
+    "penala": null,
+    "materiaali": "Al",
+    "kerroin": 35.898,
+    "potenssi": -0.985,
+    
+  },
+  {
+    "id": 2,
+    "tunniste": "Al 4 x 16", 
+    "ala": 16,
+    "resistanssid180": 2.324,
+    "resistanssi "
+    "reaktanssi": 0.09,
+    "impedansid180": 2.326,
+    "kerroin": 35.898,
+    "potenssi": -0.985,
+    "resreka20": 1.91
+  },
+]
